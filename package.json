@@ -12,7 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.3.4",
-    "@angular/cdk": "^12.2.13",
+    "@angular/cdk": "^13.3.5",
     "@angular/common": "~13.3.4",
     "@angular/compiler": "~13.3.4",
     "@angular/core": "~13.3.4",
@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "~13.3.4",
     "@angular/router": "~13.3.4",
     "angular-in-memory-web-api": "^0.13.0",
+    "angular2-text-mask": "^9.0.0",
+    "ngx-mask": "^13.1.12",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

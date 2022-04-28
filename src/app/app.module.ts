@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FormPersonComponent } from './form-person/form-person.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule } from 'ngx-mask';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
-    // TextMaskModule
+    TextMaskModule
   ],
   providers: [
     PeopleInfoService

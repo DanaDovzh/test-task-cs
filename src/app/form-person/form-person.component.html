@@ -37,7 +37,7 @@
       <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef> Number </th>
         <td mat-cell *matCellDef="let element">
-            <input class="field-car"  placeholder="AX1111HP">
+            <input type="text" class="field-car" [textMask]="{mask: numberCarMask}"  placeholder="AX1111HP">
         </td>
       </ng-container>
       <ng-container matColumnDef="brand">

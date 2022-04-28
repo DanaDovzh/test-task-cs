@@ -15,7 +15,8 @@ export class FormPersonComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) { }
   displayedColumns: string[] = ['number', 'model', 'brand', 'year', 'actions'];
   formUserData: FormGroup;
-  numberCarMask = [/[A-Z]/, /[A-Z]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[A-Z]/];
+  myModel = ''
+  numberCarMask = [/[A-Z]/, /[A-Z]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[A-Z]/,  /[A-Z]/];
   carsData: CarInfo[] = [{
     number: 'string;',
         model: 'string;',
