@@ -1,0 +1,90 @@
+<div class="form-user" [formGroup]="formUserData">
+ <div class="form-user--names">
+  <mat-form-field appearance="outline">
+    <mat-label>Second name</mat-label>
+    <input matInput placeholder="Ex.: Bandera" required formControlName="secondName">
+    <mat-hint>Your surname</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>First name</mat-label>
+    <input matInput placeholder="Ex.: Bandera" required formControlName="firstName">
+    <mat-hint>Your first name</mat-hint>
+  </mat-form-field>
+ </div>
+ <div  class="form-user--patronymic">
+  <mat-form-field appearance="outline">
+    <mat-label>Patronymic</mat-label>
+    <input matInput placeholder="Ex.: Bandera" required formControlName="patronymic">
+    <mat-hint>Your patronymic</mat-hint>
+  </mat-form-field>
+ </div>
+
+ <div class="form-user-cars">
+   <div class="form-user-cars--header">
+     <span class="title-cars">User's cars</span>
+      <div>
+
+        <button mat-icon-button aria-label="Delete a car"
+        #tooltip="matTooltip"
+          matTooltip="Info about the action"
+          matTooltipPosition="above">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+   </div>
+   <div>
+    <table *ngIf="carsData.length; else noCars" mat-table [dataSource]="carsData" class="mat-elevation-z0 cars-info-table">
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef> Number </th>
+        <td mat-cell *matCellDef="let element">
+            <input class="field-car"  placeholder="AX1111HP">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef> Brand </th>
+        <td mat-cell *matCellDef="let element">
+          <input class="field-car"  placeholder="KIA">
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef> Model </th>
+        <td mat-cell *matCellDef="let element">
+          <input class="field-car" placeholder="Optina">
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef> Year </th>
+        <td mat-cell *matCellDef="let element">
+            <input class="field-car"  placeholder="2009">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" aria-label="Delete a car">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <ng-template #noCars>
+      <div class="title-no-add sm no-cars"> No cars added </div>
+    </ng-template>
+    <div class="form-user--btns">
+      <button class="btn btn-p7 btn-save" mat-raised-button mat-dialog-close>
+        <mat-icon class="icon-sm">save</mat-icon> Save
+      </button>
+      <button class="btn btn-p7 btn-back" mat-raised-button mat-dialog-close>
+        <mat-icon class="icon-sm">keyboard_backspace</mat-icon>  Back
+      </button>
+    </div>
+   </div>
+ </div>
+</div>
