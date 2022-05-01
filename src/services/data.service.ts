@@ -44,7 +44,6 @@ export class DataService implements InMemoryDbService {
       ],
     },
    ];
-
   return { owners };
   }
 }

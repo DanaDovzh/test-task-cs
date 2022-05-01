@@ -1,5 +1,6 @@
 <div class="snackbar">
-  <div class="data">{{data}} <mat-icon>check_circle_outline</mat-icon> </div>
+  <div class="data">{{data.message}}
+    <mat-icon> {{ data.classPanel === 'error' ? 'announcement' : 'check_circle_outline'}}</mat-icon> </div>
   <div>
     <button mat-icon-button (click)="snackBarRef.dismiss()">
         <mat-icon>close</mat-icon>

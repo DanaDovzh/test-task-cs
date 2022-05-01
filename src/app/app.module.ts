@@ -35,7 +35,7 @@ import { SnakbarComponent } from './snakbar/snakbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientInMemoryWebApiModule.forRoot(DataService ),
+    HttpClientInMemoryWebApiModule.forRoot(DataService),
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,

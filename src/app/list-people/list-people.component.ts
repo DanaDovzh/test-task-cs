@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
@@ -16,7 +16,7 @@ import { SnakbarComponent } from '../snakbar/snakbar.component';
   styleUrls: ['list-people.component.sass'],
   templateUrl: 'list-people.component.html',
 })
-export class ListPeopleComponent implements OnInit {
+export class ListPeopleComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
@@ -32,6 +32,7 @@ export class ListPeopleComponent implements OnInit {
   mode: ModeDialog = 'create';
   peopleInfo: PeopleInfo[] = []
   carsNumber: string[] = [];
+  dialogRef: any;
   clickedRows: Set<PeopleInfo> = new Set<PeopleInfo>();
 
   ngOnInit(): void {
@@ -48,11 +49,17 @@ export class ListPeopleComponent implements OnInit {
       });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   createUID(): string {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 
   createUser(): void {
+    this.mode = 'create';
     this.openDialogWindow(null);
   }
 
@@ -64,50 +71,46 @@ export class ListPeopleComponent implements OnInit {
       closeOnNavigation: false,
       data: { ...data, carsNumber: this.carsNumber,  mode: this.mode }
     });
-
   }
 
-  openDialogWindow(idOwner: string): void {
-    let dialogRef: any;
-    if(idOwner) {
-      this.spinner.show();
-      this.peopleInfoService.getOwnersById(idOwner).subscribe(({...data}: PeopleInfo) => {
-        this.spinner.hide();
-        dialogRef = this.createDialogRef(data);
-        dialogRef?.afterClosed().pipe(filter(() => this.mode !== 'show')).subscribe(result => {
-          if(result) {
-            this.spinner.show();
-            this.peopleInfoService.editOwner({...result, id: idOwner})
-            .pipe(
-              switchMap(() => this.peopleInfoService.getOwners()),
-              takeUntil(this.destroy$),
-            ).subscribe((data) => {
-              this.openSnackBar('Owner is updated')
-              this.peopleInfo = data;
-              this.table?.renderRows();
-              this.spinner.hide();
-              });
-          }
-        });
-      })
-    } else {
-      this.mode = 'create';
-      dialogRef = this.createDialogRef(null);
-    }
-    dialogRef?.afterClosed().subscribe(result => {
+  closeDialogDef(idOwner?: string) {
+    this.dialogRef?.afterClosed()
+    .pipe(filter(() => this.mode !== 'show'), takeUntil(this.destroy$)).subscribe(result => {
+      const action = this.mode === 'edit'
+      ? this.peopleInfoService.editOwner({...result, id: idOwner})
+      : this.peopleInfoService.createNewOwner({...result, id: this.createUID() });
       if(result) {
-        this.peopleInfoService.createNewOwner({...result, id: this.createUID() })
+        this.spinner.show();
+        action
         .pipe(
           switchMap(() => this.peopleInfoService.getOwners()),
           takeUntil(this.destroy$),
         ).subscribe((data) => {
-            this.openSnackBar('New owner is added')
-            this.peopleInfo = data;
-            this.table?.renderRows();
-            this.spinner.hide();
+          this.openSnackBar(this.mode === 'edit' ? 'Owner is updated' : 'New owner is added')
+          this.peopleInfo = data;
+          this.table?.renderRows();
+          this.spinner.hide();
+          }, () => {
+            this.openSnackBar('Something went wrong', 'error');
           });
       }
     });
+  }
+
+  openDialogWindow(idOwner: string): void {
+    this.dialogRef = null;
+    if(idOwner) {
+      this.peopleInfoService.getOwnersById(idOwner)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({...data}: PeopleInfo) => {
+        this.spinner.hide();
+        this.dialogRef = this.createDialogRef(data);
+        this.closeDialogDef(idOwner);
+      });
+    } else {
+      this.dialogRef = this.createDialogRef(null);
+      this.closeDialogDef();
+    }
   }
 
   openDialogOwner(id: string, mode: ModeDialog): void {
@@ -124,13 +127,16 @@ export class ListPeopleComponent implements OnInit {
     ).subscribe((result) => {
         this.peopleInfo = result;
         this.spinner.hide();
+      }, () => {
+        this.openSnackBar('Something went wrong', 'error');
       });
   }
 
-  openSnackBar(message: string):void {
+  openSnackBar(message: string, classPanel: string = 'ok'):void {
     this.snackBar.openFromComponent(SnakbarComponent, {
-      data: message,
-      duration: 2500
+      data: {message, classPanel},
+      panelClass: classPanel,
+      duration: 250000
     });
   }
 }

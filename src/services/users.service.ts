@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { InMemoryDbService } from "angular-in-memory-web-api";
 import { PeopleInfo } from "src/models/people-info.models";
 
 @Injectable({
