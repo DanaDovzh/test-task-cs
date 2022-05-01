@@ -27,7 +27,7 @@
         <span class="title-cars">User's cars</span>
           <mat-icon
             #tooltip="matTooltip"
-            [matTooltip]="tooltipColumn.numberCars"
+            [matTooltip]="tooltips.numberCars"
             matTooltipClass="car-tooltip"
             matTooltipPosition="above">
             directions_car
@@ -55,7 +55,7 @@
                 Number
                 <mat-icon
                   class="icon-sm" #tooltip="matTooltip"
-                  [matTooltip]="tooltipColumn.number"
+                  [matTooltip]="tooltips.number"
                   matTooltipPosition="above">
                   info
                 </mat-icon>
@@ -76,7 +76,7 @@
                 Brand
                 <mat-icon
                   class="icon-sm" #tooltip="matTooltip"
-                  [matTooltip]="tooltipColumn.brand"
+                  [matTooltip]="tooltips.brand"
                   matTooltipPosition="above">
                   info
                 </mat-icon>
@@ -93,7 +93,7 @@
                 Model
                 <mat-icon
                   class="icon-sm" #tooltip="matTooltip"
-                  [matTooltip]="tooltipColumn.model"
+                  [matTooltip]="tooltips.model"
                   matTooltipPosition="above">
                   info
                 </mat-icon>
@@ -110,7 +110,7 @@
                 Year
                 <mat-icon
                   class="icon-sm" #tooltip="matTooltip"
-                  [matTooltip]="tooltipColumn.year"
+                  [matTooltip]="tooltips.year"
                   matTooltipPosition="above">
                   info
                 </mat-icon>

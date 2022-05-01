@@ -21,7 +21,7 @@ export class FormPersonComponent implements OnInit {
   ) {}
 
   thisYear: number = new Date().getFullYear();
-  tooltipColumn = {
+  tooltips = {
     number: 'Number car is required and be in format like AH1111AS',
     model: 'Model is required',
     brand: 'Brand is required',
