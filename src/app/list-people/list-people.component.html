@@ -27,13 +27,13 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element">
-      <button (click)="openUser(element)" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+      <button (click)="openDialogOwner(element.id, 'show')" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
         <mat-icon class="action-icon view">remove_red_eye</mat-icon>
       </button>
-      <button (click)="editUser(element)" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+      <button (click)="openDialogOwner(element.id, 'edit')" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
         <mat-icon class="action-icon">edit</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+      <button (click)="deleteUser(element.id)" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
         <mat-icon class="action-icon delete">delete</mat-icon>
       </button>
     </td>
@@ -47,3 +47,5 @@
   <div class="title-no-add">No people added</div>
 </ng-template>
 </div>
+
+<ngx-spinner bdColor = "rgba(0,0,0,0.43)" size = "default" color = "#676767" type = "pacman" [fullScreen] = "true"></ngx-spinner>

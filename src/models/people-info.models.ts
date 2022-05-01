@@ -6,6 +6,7 @@ export interface CarInfo {
 }
 
 export interface PeopleInfo {
+  id: string;
   secondName: string;
   firstName: string;
   patronymic: string;

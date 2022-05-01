@@ -46,7 +46,15 @@
     margin-top: 20px
     padding-top: 10px
     border-top: 1px solid #7e7d7d
+    position: relative
 
+.noClick
+  pointer-events: none
+
+.header-table
+  display: flex
+  justify-content: center
+  align-items: center
 
 .field-car
   margin-right: 10px
@@ -73,4 +81,20 @@
     background: #867373
   &.btn-save
     background: $green-ligth-color
+    margin-right: 5px
 
+
+.err-inp
+  border-color: $red-color-error
+
+.car-tooltip
+  background: #b968ffbf !important
+
+.text-error
+  color: $red-color-error
+  align-self: center
+  position: absolute
+  left: 0
+  top: 0
+  font-size: 12px
+  
